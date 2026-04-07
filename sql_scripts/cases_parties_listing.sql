@@ -70,6 +70,6 @@ select a.question_id,  --question text with answer appended sometimes
 		dbo.IDS_ANSWER a join dbo.ids_questionset q
 		on a.QUESTIONSET_ID=q.UNID
 		join dbo.ids_case c on q.CASE_ID = c.UNID
-	where --c.case_id like '113542190';
+	where 
 		c.create_date >= convert(nvarchar,'2025-06-01',21) -- format 21 yyyy-mm-dd hh:mm:ss.zzzz
 		and q.questionset_id in ('ADMINISTRATIVE','DEMOGRAPHIC','CLINICAL');
