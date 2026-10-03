@@ -60,3 +60,33 @@ DiseaseSurveillanceModel_Coinfection         145
 IsolationAndControlModel                     103
 EHRAndScreeningModel_STD                      35
 */
+
+-- Listing questions and models and question packages
+-- takes 7:39 minutes with max()
+-- takes 6:39 minutes with min()
+-- 14,996 rows as of 6/1/2026
+
+select a.QUESTION_ID,  -- Question text with answer appended sometimes
+		min(a.value) as value,       -- The answer for the question min or max aggregate function can be used
+		q.QUESTIONSET_ID,  -- the category of the question
+		--c.CASE_ID,
+		c.MODEL_NAME     -- the model to which the question belongs
+	from 
+		dbo.IDS_ANSWER a join 
+		dbo.ids_questionset q
+		on a.QUESTIONSET_ID=q.UNID
+		join dbo.ids_case c on q.CASE_ID = c.UNID
+	--where c.model_name like 'Childhood_Lead_Child_Model'
+	--where c.modification_date > '2025-09-19'
+	--where a.question_ID like '%AUTOIMMUNE_DISORDER%'
+	--where a.QUESTION_ID like 'DEATH%'
+	--where c.unid like '12741552157'
+	group by a.QUESTION_ID,
+	--a.value,
+	q.QUESTIONSET_ID,
+	c.MODEL_NAME
+	order by c.model_name;
+
+--select * from dbo.ids_answer a where a.question_id like '%ACUPUNCTURE%';
+
+--select * from dbo.IDS_CASE where unid like '12741552157';

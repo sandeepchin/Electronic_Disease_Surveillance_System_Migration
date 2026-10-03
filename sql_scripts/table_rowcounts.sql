@@ -8,6 +8,7 @@
 select distinct t.name, s.row_count from  
 	sys.tables t join sys.dm_db_partition_stats s
 	on t.object_id = s.object_id 
+	where s.row_count>0
 	order by t.name;
 
 
@@ -15,4 +16,4 @@ select distinct t.name, s.row_count from
 
 SELECT TABLE_NAME, COLUMN_NAME
 FROM INFORMATION_SCHEMA.COLUMNS
-WHERE COLUMN_NAME like '%name%';
+WHERE COLUMN_NAME like '%ACUPUNCTURE%';

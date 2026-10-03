@@ -62,7 +62,7 @@ select p.unid as party_id,
 		--c.source_system as source_system  -- does not exist
 
 	from 
-		dbo.IDS_CONTACTPOINT c join dbo.IDS_PARTY p on c.PARTY_ID = p.UNID
+		dbo.IDS_PARTY p left join dbo.IDS_CONTACTPOINT c on c.PARTY_ID = p.UNID
 		left join dbo.ids_enum_entry e on p.category = e.value and e.enum_name='Party.Category'
 		left join dbo.ids_enum_entry e1 on p.type=e1.value and e1.enum_name='Party.Type'
 		left join dbo.ids_enum_entry e2 on p.status=e2.value and e2.enum_name='Party.Status'
@@ -74,11 +74,11 @@ select p.unid as party_id,
 		left join dbo.ids_enum_entry e8 on c.residence_type=e8.value and e8.enum_name='Residence.Type'
 		left join dbo.ids_enum_entry e9 on c.validation_status=e9.value and e9.enum_name='Callout.Status'
 		left join dbo.ids_enum_entry e10 on c.geocode_status=e10.value and e10.enum_name='Callout.Status'
-
-	where p.LAST_NAME like 'A%'
+		;
+	--where p.LAST_NAME like 'A%'
 	--and( p.LAST_NAME is null or p.last_name='') 
 	--and (p.first_name is null or p.first_name ='')
 	--and (p.birth_date is null or p.birth_date='')
 	--and (c.postal_code is null or c.postal_code in ('','nullFlavor_UNK','nullFlavor_NI'))
 	--and ((c.street1 is null or c.street1 = '') and (c.street2 is null or c.street2 =''))
-	order by p.last_name;
+	--order by p.last_name;
